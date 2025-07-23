@@ -1,26 +1,3 @@
-/* el-menu-item 隔离样式 */
-.el-menu-vertical-demo .el-menu-item {
-  margin-bottom: 6px;
-  border-radius: 6px;
-  transition: background 0.2s, color 0.2s;
-  position: relative;
-}
-.el-menu-vertical-demo .el-menu-item:not(:last-child)::after {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: -3px;
-  height: 1px;
-  background: #ececec;
-  opacity: 0.8;
-}
-.el-menu-vertical-demo .el-menu-item.is-active,
-.el-menu-vertical-demo .el-menu-item:hover {
-  background: #e6f0fa !important;
-  color: #3a5ccc !important;
-}
 <script setup>
 import { ref } from "vue";
 import ElementPlus from "element-plus";
@@ -78,13 +55,6 @@ const currentTool = ref("UUID");
 </template>
 
 <style>
-body {
-  background: #efefef;
-}
-
-#app {
-  padding: 0;
-}
 </style>
 
 <style scoped>
@@ -104,7 +74,7 @@ body {
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 1.5px 6px #0001;
-  padding: 0 40px 0 0;
+  padding: 40px 24px;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -120,15 +90,17 @@ body {
   /* 移除固定高度，避免撑出滚动条 */
 }
 .sidebar {
-  width: 210px;
-  background: #f6f7f9;
+  width: 360px;
+  background: #fff;
   color: #222;
   border-right: 1px solid #ececec;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   padding: 24px 0 0 0;
-  min-height: 100%;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  margin: 40px 20px 0 20px;
 }
 /* 让el-menu宽度100%填满sidebar */
 .el-menu-vertical-demo {
@@ -177,9 +149,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  padding: 40px 0 0 0;
-  background: #f7f9fa;
+  margin: 40px 20px 0px 20px;
   min-width: 0;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  padding: 0;
 }
 .tool-card {
   background: #fff;

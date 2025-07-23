@@ -2,10 +2,10 @@
   <div class="tool-module">
     <el-form :inline="true" class="uuid-options">
       <el-form-item label="生成数量">
-        <el-input-number v-model="count" :min="1" :max="100" size="small" style="width:90px" />
+        <el-input-number v-model="count" :min="1" :max="100" style="width:90px" />
       </el-form-item>
       <el-form-item label="字母">
-        <el-select v-model="caseType" size="small" style="width:90px">
+        <el-select v-model="caseType" style="width:90px">
           <el-option label="原样" value="original" />
           <el-option label="大写" value="upper" />
           <el-option label="小写" value="lower" />
@@ -15,10 +15,10 @@
         <el-checkbox v-model="withDash">带横线</el-checkbox>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="generateUUIDs" size="small">生成UUID</el-button>
+        <el-button type="primary" @click="generateUUIDs">生成UUID</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="uuids.map(u=>({uuid:u}))" border size="small" style="margin-top:12px;">
+    <el-table :data="uuids.map(u=>({uuid:u}))" border style="margin-top:12px;">
       <el-table-column prop="uuid" label="UUID" />
       <el-table-column label="操作" width="80">
         <template #default="scope">
