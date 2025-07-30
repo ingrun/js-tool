@@ -6,9 +6,10 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="encodeMD5">加密</el-button>
+        <el-button @click="input = ''">清空</el-button>
       </el-form-item>
     </el-form>
-    <el-input v-if="output" v-model="output" readonly class="md5-output" />
+    <el-input v-model="output" readonly class="md5-output" />
   </div>
 </template>
 

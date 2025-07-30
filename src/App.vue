@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from "vue";
-import ElementPlus from "element-plus";
 import "element-plus/dist/index.css";
 import UUIDGenerator from "./tools/UUIDGenerator.vue";
 import JSONFormatter from "./tools/JSONFormatter.vue";
@@ -17,14 +16,14 @@ const currentTool = ref("UUID");
 <template>
   <el-container class="app-layout">
     <el-header class="header">
-      <div class="header-logo">LOGO</div>
+      <div class="header-logo">捡陋工具箱</div>
       <div class="header-nav">
-        <a href="#" class="header-link" disabled>关于作者</a>
-        <a href="https://github.com/" class="header-link" target="_blank"
+        <a
+          href="https://gitee.com/ingrun/js-tools"
+          class="header-link"
+          target="_blank"
           >开源地址</a
         >
-        <a href="#" class="header-link">日/夜间模式</a>
-        <a href="#" class="header-link">中/English</a>
       </div>
     </el-header>
     <el-container class="content-row">
@@ -54,13 +53,12 @@ const currentTool = ref("UUID");
   </el-container>
 </template>
 
-<style>
-</style>
+<style></style>
 
 <style scoped>
 .app-layout {
   min-height: 100vh;
-  background: #f7f9fa;
+  background: #edeff0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -87,20 +85,17 @@ const currentTool = ref("UUID");
   display: flex;
   flex-direction: row;
   min-height: 0;
-  /* 移除固定高度，避免撑出滚动条 */
+  padding: 20px;
 }
 .sidebar {
-  width: 360px;
+  width: 16%;
   background: #fff;
   color: #222;
-  border-right: 1px solid #ececec;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   padding: 24px 0 0 0;
-  border-top-right-radius: 40px;
-  border-bottom-right-radius: 40px;
-  margin: 40px 20px 0 20px;
+  border-radius: 8px;
 }
 /* 让el-menu宽度100%填满sidebar */
 .el-menu-vertical-demo {
@@ -149,10 +144,8 @@ const currentTool = ref("UUID");
   display: flex;
   justify-content: center;
   align-items: stretch;
-  margin: 40px 20px 0px 20px;
+  margin: 0 20px 0px 20px;
   min-width: 0;
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px;
   padding: 0;
 }
 .tool-card {
