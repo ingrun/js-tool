@@ -16,7 +16,10 @@ const currentTool = ref("UUID");
 <template>
   <el-container class="app-layout">
     <el-header class="header">
-      <div class="header-logo">捡陋工具箱</div>
+      <div class="header-logo">
+        <img src="./assets/tool-logo.png"></img>
+      </div>
+      <div class="header-name">捡陋工具箱</div>
       <div class="header-nav">
         <a
           href="https://gitee.com/ingrun/js-tools"
@@ -70,14 +73,19 @@ const currentTool = ref("UUID");
   background: #fff;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   box-shadow: 0 1.5px 6px #0001;
   padding: 40px 24px;
   position: sticky;
   top: 0;
   z-index: 10;
 }
-.header-logo {
+.header-logo img{
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+}
+.header-name {
   color: #3a5ccc;
 }
 .content-row {
@@ -127,7 +135,8 @@ const currentTool = ref("UUID");
 .header-nav {
   display: flex;
   gap: 24px;
-  align-items: center;
+  /* align-items: center; */
+  margin-left: auto;
 }
 .header-link {
   color: #444;
@@ -144,7 +153,7 @@ const currentTool = ref("UUID");
   display: flex;
   justify-content: center;
   align-items: stretch;
-  margin: 0 20px 0px 20px;
+  margin-left: 20px;
   min-width: 0;
   padding: 0;
 }
