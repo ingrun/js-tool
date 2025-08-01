@@ -20,10 +20,12 @@ const currentTool = ref("UUID");
 <template>
   <el-container class="app-layout">
     <el-header class="header">
-      <div class="header-logo">
-        <img src="./assets/tool-logo.png"></img>
+      <div class="header-title">
+        <div class="header-logo">
+          <img src="./assets/tool-logo.png"></img>
+        </div>
+        <div class="header-name">捡陋工具箱</div>
       </div>
-      <div class="header-name">捡陋工具箱</div>
       <div class="header-nav">
         <a
           href="https://gitee.com/ingrun/js-tools"
@@ -84,13 +86,26 @@ const currentTool = ref("UUID");
   top: 0;
   z-index: 10;
 }
-.header-logo img{
-  width: 40px;
-  height: 40px;
-  margin-right: 12px;
+
+.header-title{
+  display: flex;
+  align-items: center;
+  color: #222;
+  font-size: 1.2em;
+  margin-left: 8px;
 }
+
+.header-logo img{
+  width: 32px;
+  height: 32px;
+  margin-right: 12px;
+  vertical-align: middle;
+}
+
 .header-name {
-  color: #3a5ccc;
+  color: #4c4c50;
+  font-weight: bolder;
+  line-height: 1;
 }
 .content-row {
   flex: 1;
