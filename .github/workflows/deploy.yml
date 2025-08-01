@@ -23,9 +23,8 @@ jobs:
       - name: Build project
         run: npm run build  # 默认 Vue CLI 构建命令，输出目录为 dist
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/gh-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist  # 构建输出目录
-          # 如果需要，可添加 `public_path: /js-tool/`（如果 GitHub Pages 配置了子路径）
+          path: ./dist
+          path: ./dist  # 构建输出目录
