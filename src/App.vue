@@ -4,11 +4,15 @@ import "element-plus/dist/index.css";
 import UUIDGenerator from "./tools/UUIDGenerator.vue";
 import JSONFormatter from "./tools/JSONFormatter.vue";
 import MD5Encoder from "./tools/MD5Encoder.vue";
+import Base64Encoder from "./tools/Base64Encoder.vue";
+import QRCodeGenerator from "./tools/QRCodeGenerator.vue";
 
 const tools = [
   { name: "UUID", label: "UUID生成", component: UUIDGenerator },
   { name: "JSON", label: "JSON格式化", component: JSONFormatter },
   { name: "MD5", label: "MD5加密", component: MD5Encoder },
+  { name: "Base64", label: "Base64编码", component: Base64Encoder },
+  { name: "QRCode", label: "二维码生成", component: QRCodeGenerator },
 ];
 const currentTool = ref("UUID");
 </script>
