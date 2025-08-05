@@ -100,7 +100,6 @@ async function getIPInfo() {
       // 另一个备用方案
       () => fetch("https://ipinfo.io/json").then(res => res.json())
     ];
-  安静
     let data = null;
     let lastError = null;
     
