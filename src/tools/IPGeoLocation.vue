@@ -82,47 +82,19 @@ const ipInfo = ref(null);
 const searchIP = ref("");
 const searchResult = ref(null);
 
-// 获取当前访问者IP信息 - 使用多个API服务
+// 获取当前访问者IP信息 - 使用ip-api.com服务
 async function getIPInfo() {
   try {
     loading.value = true;
     
-    // 使用多个API作为备选方案，包括国内服务
-    const apis = [
-      // 国内服务优先尝试
-      () => fetch("https://api.ipify.org?format=json").then(res => res.json())
-        .then(data => fetch(`https://ipapi.co/${data.ip}/json/`))
-        .then(res => res.json()),
-      
-      // 备用方案
-      () => fetch("https://api.ip.sb/geoip").then(res => res.json()),
-      
-      // 另一个备用方案
-      () => fetch("https://ipinfo.io/json").then(res => res.json())
-    ];
-    let data = null;
-    let lastError = null;
+    // 使用ip-api.com服务
+    const response = await fetch("http://ip-api.com/json/?lang=zh-CN");
+    const data = await response.json();
     
-    // 按顺序尝试API
-    for (const api of apis) {
-      try {
-        const result = await api();
-        // 检查响应是否有效
-        if ((result.country && result.ip) || (result.country_name && result.ip) || (result.loc && result.ip)) {
-          data = result;
-          break;
-        }
-      } catch (error) {
-        lastError = error;
-        continue;
-      }
-    }
-    
-    if (data) {
-      // 标准化数据格式
-      ipInfo.value = normalizeIPData(data);
+    if (data.status === "success") {
+      ipInfo.value = data;
     } else {
-      throw lastError || new Error("所有IP查询服务均不可用");
+      throw new Error("获取IP信息失败");
     }
   } catch (error) {
     console.error("获取IP信息出错:", error);
@@ -142,14 +114,14 @@ async function searchIPInfo() {
     searchLoading.value = true;
     searchResult.value = null;
     
-    // 使用 ipapi.co 查询指定IP
-    const response = await fetch(`https://ipapi.co/${searchIP.value}/json/`);
+    // 使用 ip-api.com 查询指定IP
+    const response = await fetch(`http://ip-api.com/json/${searchIP.value}?lang=zh-CN`);
     const data = await response.json();
     
-    if (data.error) {
-      throw new Error(data.reason || "查询IP信息失败");
+    if (data.status === "success") {
+      searchResult.value = data;
     } else {
-      searchResult.value = normalizeIPData(data);
+      throw new Error(data.message || "查询IP信息失败");
     }
   } catch (error) {
     console.error("查询IP信息出错:", error);
@@ -162,66 +134,13 @@ async function searchIPInfo() {
 
 // 标准化不同API返回的数据格式
 function normalizeIPData(data) {
-  // 处理 ipapi.co 的数据格式
-  if (data.ip && data.country_name) {
-    return {
-      query: data.ip,
-      country: data.country_name,
-      countryCode: data.country_code,
-      region: data.region_code || "",
-      regionName: data.region || "",
-      city: data.city || "",
-      zip: data.postal || "",
-      lat: data.latitude || "",
-      lon: data.longitude || "",
-      timezone: data.timezone || "",
-      isp: data.org || data.asn || "",
-      status: "success"
-    };
-  }
-  
-  // 处理 ip.sb 的数据格式
-  if (data.ip && data.country) {
-    return {
-      query: data.ip,
-      country: data.country,
-      countryCode: data.country_code,
-      region: data.region_code || "",
-      regionName: data.region || "",
-      city: data.city || "",
-      zip: data.postal_code || "",
-      lat: data.latitude || "",
-      lon: data.longitude || "",
-      timezone: data.timezone || "",
-      isp: data.organization || data.asn || "",
-      status: "success"
-    };
-  }
-  
-  // 处理 ipinfo.io 的数据格式
-  if (data.ip && data.loc) {
-    const [lat, lon] = data.loc.split(",");
-    return {
-      query: data.ip,
-      country: data.country,
-      countryCode: data.country,
-      region: data.region || "",
-      regionName: data.region || "",
-      city: data.city || "",
-      zip: data.postal || "",
-      lat: lat || "",
-      lon: lon || "",
-      timezone: data.timezone || "",
-      isp: data.org || data.asn || "",
-      status: "success"
-    };
-  }
-  
-  // 处理 ipify 获取IP后查询的结果
-  if (data.query) {
+  // 处理 ip-api.com 的数据格式
+  if (data.status === "success") {
     return {
       query: data.query,
-      country: data.country || "",
+      country: data.country,
+      countryCode: data.countryCode,
+      region: data.region || "",
       regionName: data.regionName || "",
       city: data.city || "",
       zip: data.zip || "",
