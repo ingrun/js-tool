@@ -8,6 +8,7 @@ import Base64Encoder from "./tools/Base64Encoder.vue";
 import QRCodeGenerator from "./tools/QRCodeGenerator.vue";
 import IPGeoLocation from "./tools/IPGeoLocation.vue";
 import RandomString from "./tools/RandomString.vue";
+import RegexTester from "./tools/RegexTester.vue";
 
 const tools = [
   { name: "UUID", label: "UUID生成", component: UUIDGenerator },
@@ -17,6 +18,7 @@ const tools = [
   { name: "QRCode", label: "二维码生成", component: QRCodeGenerator },
   { name: "IP", label: "IP归属地查询", component: IPGeoLocation },
   { name: "RString", label: "随机字符串", component: RandomString  },
+  { name: "Regex", label: "正则表达式", component: RegexTester },
 ];
 const currentTool = ref("UUID");
 </script>
