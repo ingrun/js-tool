@@ -1,26 +1,34 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted  } from "vue";
 import "element-plus/dist/index.css";
-import UUIDGenerator from "./tools/UUIDGenerator.vue";
-import JSONFormatter from "./tools/JSONFormatter.vue";
-import MD5Encoder from "./tools/MD5Encoder.vue";
-import Base64Encoder from "./tools/Base64Encoder.vue";
-import QRCodeGenerator from "./tools/QRCodeGenerator.vue";
-import IPGeoLocation from "./tools/IPGeoLocation.vue";
-import RandomString from "./tools/RandomString.vue";
-import RegexTester from "./tools/RegexTester.vue";
 
-const tools = [
-  { name: "UUID", label: "UUID生成", component: UUIDGenerator },
-  { name: "JSON", label: "JSON格式化", component: JSONFormatter },
-  { name: "MD5", label: "MD5加密", component: MD5Encoder },
-  { name: "Base64", label: "Base64编码", component: Base64Encoder },
-  { name: "QRCode", label: "二维码生成", component: QRCodeGenerator },
-  { name: "IP", label: "IP归属地查询", component: IPGeoLocation },
-  { name: "RString", label: "随机字符串", component: RandomString  },
-  { name: "Regex", label: "正则表达式", component: RegexTester },
-];
-const currentTool = ref("UUID");
+const currentTool = ref("");
+const currentComponent = ref(null);
+const tools = ref([]);
+const modules = import.meta.glob('./tools/*.vue')
+onMounted(async () => {
+  const modulePromises = []
+  for (const path in modules) {
+    modulePromises.push(modules[path]().then(module => {
+      const componentName = path.replace('./tools/', '').replace('.vue', '')
+      const component = module.default
+      return {
+        name: componentName,
+        label: component.meta?.label || `${componentName}`,
+        component: component
+      }
+    }))
+  }
+  tools.value = await Promise.all(modulePromises)
+  // 默认显示第一个
+  switchTool(tools.value[0])
+})
+
+const switchTool = (tools) => {
+  const { component, name } = tools;
+  currentComponent.value = component;
+  currentTool.value = name;
+}
 </script>
 
 <template>
@@ -56,6 +64,7 @@ const currentTool = ref("UUID");
             v-for="tool in tools"
             :key="tool.name"
             :index="tool.name"
+            @click="switchTool(tool)"
           >
             {{ tool.label }}
           </el-menu-item>
@@ -64,8 +73,11 @@ const currentTool = ref("UUID");
       <el-main class="main-content">
         <div class="tool-card tool-card-large">
           <component
-            :is="tools.find((t) => t.name === currentTool).component"
+            :is="currentComponent"
           />
+          <!-- <component
+            :is="tools.find((t) => t.name === currentTool)?.component"
+          /> -->
         </div>
       </el-main>
     </el-container>

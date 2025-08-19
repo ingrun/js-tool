@@ -74,6 +74,12 @@
 </template>
 
 <script setup>
+defineOptions({
+  name: 'IP',
+  meta: {
+    label: 'IP归属地查询'
+  }
+})
 import { ref, onMounted } from "vue";
 
 const loading = ref(false);
@@ -88,7 +94,7 @@ async function getIPInfo() {
     loading.value = true;
     
     // 使用ip-api.com服务
-    const response = await fetch("http://ip-api.com/json/?lang=zh-CN");
+    const response = await fetch("//ip-api.com/json/?lang=zh-CN");
     const data = await response.json();
     
     if (data.status === "success") {

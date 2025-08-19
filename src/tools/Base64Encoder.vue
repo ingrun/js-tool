@@ -67,6 +67,12 @@
 </template>
 
 <script setup>
+defineOptions({
+  name: 'Base64',
+  meta: {
+    label: 'Base64编码'
+  }
+})
 import { ref } from 'vue'
 
 const activeTab = ref('encode')

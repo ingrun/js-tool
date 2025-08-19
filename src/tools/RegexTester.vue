@@ -231,6 +231,12 @@
 </template>
 
 <script setup>
+defineOptions({
+  name: 'Regex',
+  meta: {
+    label: '正则表达式'
+  }
+})
 import { ref, reactive, computed } from "vue";
 
 const activeResultTab = ref("matches");

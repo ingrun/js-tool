@@ -32,6 +32,12 @@
 </template>
 
 <script setup>
+defineOptions({
+  name: 'JSON',
+  meta: {
+    label: 'JSON格式化'
+  }
+})
 import { ref } from "vue";
 const input = ref("");
 const output = ref("");

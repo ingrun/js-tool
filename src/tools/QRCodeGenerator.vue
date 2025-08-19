@@ -30,6 +30,12 @@
 </template>
 
 <script setup>
+defineOptions({
+  name: 'QRCode',
+  meta: {
+    label: '二维码生成'
+  }
+})
 import { ref } from 'vue'
 import QRCode from 'qrcode'
 

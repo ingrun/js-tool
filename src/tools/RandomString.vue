@@ -38,6 +38,12 @@
 </template>
 
 <script setup>
+defineOptions({
+  name: 'RString',
+  meta: {
+    label: '随机字符串'
+  }
+})
 import { ref, onMounted } from "vue";
 
 const count = ref(10);

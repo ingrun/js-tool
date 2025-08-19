@@ -33,6 +33,12 @@
 </template>
 
 <script setup>
+defineOptions({
+  name: 'UUID',
+  meta: {
+    label: 'UUID生成'
+  }
+})
 import { ref } from "vue";
 const count = ref(5);
 const caseType = ref("lower"); //  upper, lower

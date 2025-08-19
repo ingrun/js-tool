@@ -14,6 +14,12 @@
 </template>
 
 <script setup>
+defineOptions({
+  name: 'MD5',
+  meta: {
+    label: 'MD5加密'
+  }
+})
 import { ref } from 'vue'
 import md5 from 'blueimp-md5'
 const input = ref('')
